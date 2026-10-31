@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#2f5d50" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>伴读</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="stylesheet" href="app.css" />
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>伴读</h1>
+    <span class="pill" id="mode">云端</span>
+    <button class="ghost small" id="gear" type="button">设置</button>
+  </div>
+</header>
+
+<main>
+  <section class="card hidden" id="settings">
+    <h2>设置（只存在本机浏览器）</h2>
+    <label for="key">API Key</label>
+    <input id="key" type="password" placeholder="sk-..." autocomplete="off" />
+    <label for="base">接口地址</label>
+    <input id="base" placeholder="https://api.deepseek.com" />
+    <label for="model">模型</label>
+    <input id="model" placeholder="deepseek-chat" />
+    <div class="row">
+      <button id="save" type="button">保存</button>
+      <button class="ghost" id="export" type="button">导出全部 Markdown</button>
+    </div>
+    <p class="meta" style="margin-top:10px">Key 只在你手机浏览器里，直接发给模型服务商；本站只托管代码，不接收数据。建议单独开一个有额度限制的 Key，并每周导出一次（浏览器存储可能被系统清理）。</p>
+  </section>
+
+  <section class="card">
+    <h2>提问</h2>
+    <label for="ctx">当前阅读 / 选中（可选，粘贴进来）</label>
+    <textarea id="ctx" placeholder="从 ReadAny 里复制一段贴进来，回答会更贴着文本。"></textarea>
+    <label for="q">问题</label>
+    <textarea id="q" placeholder="词句、论证、辨析、上探都行。"></textarea>
+    <div class="row">
+      <select id="depth" aria-label="深度">
+        <option value="auto" selected>自动</option>
+        <option value="L1">L1 释义</option>
+        <option value="L2">L2 语境</option>
+        <option value="L3">L3 辨析</option>
+        <option value="L4">L4 上探</option>
+      </select>
+      <select id="stance" aria-label="立场">
+        <option selected>陪读</option>
+        <option>审稿</option>
+        <option>论敌</option>
+      </select>
+      <button id="ask" type="button">问</button>
+    </div>
+    <div class="answer" id="answer"></div>
+    <div id="copylines"></div>
+    <div class="err" id="err"></div>
+  </section>
+
+  <section class="card">
+    <h2>随手记</h2>
+    <textarea id="note" placeholder="一句想法、一个疑问、一段值得回看的原文。"></textarea>
+    <div class="row">
+      <select id="source" aria-label="来源">
+        <option selected>manual</option>
+        <option>selection</option>
+        <option>highlight</option>
+        <option>paper</option>
+      </select>
+      <input id="page" placeholder="页码（可选）" style="flex:1; min-width:120px" />
+    </div>
+    <div class="row">
+      <button id="capture" type="button">存下</button>
+      <span class="meta" id="capmeta"></span>
+    </div>
+    <div id="inbox" style="margin-top:8px"></div>
+  </section>
+
+  <section class="card">
+    <h2>问题清单（点状态切换）</h2>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<footer>
+  <div id="count"></div>
+  <div style="margin-top:6px">深答在浏览器里直连模型；没有服务器，没有同步。换手机或清理浏览器前先导出。</div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
