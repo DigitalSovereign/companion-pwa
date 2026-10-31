@@ -22,7 +22,7 @@ function applySettings() {
   saveSettings(s);
   $("settings").classList.add("hidden");
   $("err").textContent = "";
-  $("mode").textContent = s.key ? "云端 · 已配置" : "云端 · 未配置";
+  $("mode").textContent = s.key ? "直连 · 已配置" : "直连 · 未配置";
 }
 function toggleSettings() {
   $("settings").classList.toggle("hidden");
@@ -76,7 +76,8 @@ async function ask() {
 
   const base = (s.base || "https://api.deepseek.com").replace(/\/+$/, "");
   const model = s.model || "deepseek-chat";
-  const depth = $("depth").value;
+  const depthRaw = $("depth").value;
+  const depth = depthRaw === "auto" ? "自动判断" : depthRaw;
   const stance = $("stance").value;
   const ctx = $("ctx").value.trim();
 
@@ -207,7 +208,7 @@ renderInbox();
 loadQuestions();
 
 const s = getSettings();
-$("mode").textContent = s.key ? "云端 · 已配置" : "云端 · 未配置";
+$("mode").textContent = s.key ? "直连 · 已配置" : "直连 · 未配置";
 if (!s.key) { $("settings").classList.remove("hidden"); }
 
 if ("serviceWorker" in navigator) {
